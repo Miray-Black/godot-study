@@ -1,20 +1,57 @@
-[gd_scene load_steps=2 format=3 uid="uid://m8n687x5mt0b"]
+[gd_scene load_steps=9 format=3 uid="uid://m8n687x5mt0b"]
 
 [ext_resource type="Script" uid="uid://oneneo70dbsa" path="res://sprite_2d.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://cybpuvg3okvyw" path="res://arts-and-adds/bat.png" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bhaeo0bh8lq3n" path="res://wall.tscn" id="3_h2yge"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2yge"]
+atlas = ExtResource("2_0xm2m")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bvp3"]
+atlas = ExtResource("2_0xm2m")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lquwl"]
+atlas = ExtResource("2_0xm2m")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7mycd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2yge")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bvp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lquwl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_272bh"]
+radius = 4.12311
 
 [node name="Main" type="Node2D"]
+position = Vector2(10, 10)
 
 [node name="Player" type="CharacterBody2D" parent="."]
 script = ExtResource("1_ig7tw")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_7mycd")
+animation = &"idle"
+frame = 2
+frame_progress = 0.562004
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-
-[node name="ColorRect" type="ColorRect" parent="Player"]
-layout_direction = 1
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.822837, 0.205176, 0.371377, 1)
+shape = SubResource("CircleShape2D_272bh")
 
 [node name="WorldEnvironment" type="Node2D" parent="."]
+
+[node name="StaticBody2D" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(563, 585)
